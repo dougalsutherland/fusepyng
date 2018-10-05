@@ -9,7 +9,7 @@ with open('README') as readme:
 
 setup(
     name = 'fusepyng',
-    version='1.0.2',
+    version='1.0.5',
     description = 'Simple ctypes bindings for FUSE',
     long_description = documentation,
     author = 'Giorgos Verigakis',
