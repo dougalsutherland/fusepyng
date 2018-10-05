@@ -7,7 +7,7 @@ from errno import ENOENT
 from stat import S_IFDIR, S_IFREG
 from time import time
 
-from fuse import FUSE, FuseOSError, Operations, LoggingMixIn, fuse_get_context
+from fusepyng import FUSE, FuseOSError, Operations, LoggingMixIn, fuse_get_context
 
 
 class Context(LoggingMixIn, Operations):

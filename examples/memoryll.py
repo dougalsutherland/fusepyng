@@ -8,7 +8,7 @@ from errno import ENOENT
 from stat import S_IFMT, S_IMODE, S_IFDIR
 from time import time
 
-from fusell import FUSELL
+from fusellng import FUSELL
 
 
 class Memory(FUSELL):

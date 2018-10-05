@@ -6,7 +6,7 @@ import paramiko
 
 from errno import ENOENT
 
-from fuse import FUSE, FuseOSError, Operations, LoggingMixIn
+from fusepyng import FUSE, FuseOSError, Operations, LoggingMixIn
 
 
 class SFTP(LoggingMixIn, Operations):

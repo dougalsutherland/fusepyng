@@ -11,7 +11,7 @@ from ioctl_opt import IOWR
 from stat import S_IFDIR, S_IFREG
 from time import time
 
-from fuse import FUSE, FuseOSError, Operations, LoggingMixIn
+from fusepyng import FUSE, FuseOSError, Operations, LoggingMixIn
 
 if not hasattr(__builtins__, 'bytes'):
     bytes = str
