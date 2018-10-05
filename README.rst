@@ -28,7 +28,7 @@ fusepy requires FUSE 2.6 (or later) and runs on:
 .. _FUSE: http://fuse.sourceforge.net/
 
 .. examples
-.. _memory: http://github.com/fusepy/fusepy/blob/master/examples/memory.py
-.. _loopback: http://github.com/fusepy/fusepy/blob/master/examples/loopback.py
-.. _context: http://github.com/fusepy/fusepy/blob/master/examples/context.py
-.. _sftp: http://github.com/fusepy/fusepy/blob/master/examples/sftp.py
+.. _memory: http://github.com/rianhunter/fusepyng/blob/master/examples/memory.py
+.. _loopback: http://github.com/rianhunter/fusepyng/blob/master/examples/loopback.py
+.. _context: http://github.com/rianhunter/fusepyng/blob/master/examples/context.py
+.. _sftp: http://github.com/rianhunter/fusepyng/blob/master/examples/sftp.py
