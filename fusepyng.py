@@ -20,13 +20,23 @@ import errno
 import logging
 import os
 import warnings
+import threading
+import signal as signal_
 
 from ctypes.util import find_library
 from platform import machine, system
-from signal import signal, SIGINT, SIG_DFL, SIGTERM
 from stat import S_IFDIR
 from traceback import print_exc
 
+signal = signal_.signal
+SIGINT = signal_.SIGINT
+SIG_DFL = signal_.SIG_DFL
+SIGTERM = signal_.SIGTERM
+
+try:
+    pthread_kill = signal_.pthread_kill
+except AttributeError:
+    pthread_kill = None
 
 try:
     from functools import partial
@@ -677,7 +687,7 @@ def fuse_get_context():
     return ctx.uid, ctx.gid, ctx.pid
 
 
-def fuse_exit():
+def fuse_exit(fuse_loop_thread_id):
     '''
     This will shutdown the FUSE mount and cause the call to FUSE(...) to
     return, similar to sending SIGINT to the process.
@@ -688,7 +698,11 @@ def fuse_exit():
     # OpenBSD doesn't have fuse_exit
     # instead fuse_loop() gracefully catches SIGTERM
     if _system == "OpenBSD":
-        os.kill(os.getpid(), SIGTERM)
+        if pthread_kill is not None:
+            pthread_kill(fuse_loop_thread_id, SIGTERM)
+        else:
+            # Best effort
+            os.kill(os.getpid(), SIGTERM)
         return
 
     fuse_ptr = ctypes.c_void_p(_libfuse.fuse_get_context().contents.fuse)
@@ -779,6 +793,8 @@ class FUSE(object):
         except ValueError:
             old_handler = SIG_DFL
 
+        self._fuse_loop_thread_id = threading.current_thread().ident
+
         err = fuse_main_real(
             len(args), argv, ctypes.pointer(fuse_ops),
             ctypes.sizeof(fuse_ops),
@@ -840,7 +856,7 @@ class FUSE(object):
             self.__critical_exception = e
             # the raised exception (even SystemExit) will be caught by FUSE
             # potentially causing SIGSEGV, so tell system to stop/interrupt FUSE
-            fuse_exit()
+            fuse_exit(self._fuse_loop_thread_id)
             return -errno.EFAULT
 
     def _decode_optional_path(self, path):
