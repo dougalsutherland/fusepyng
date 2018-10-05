@@ -8,18 +8,17 @@ with open('README') as readme:
     documentation = readme.read()
 
 setup(
-    name = 'fusepy',
-    version = '3.0.1',
-
+    name = 'fusepyng',
+    version = '1.0.0',
     description = 'Simple ctypes bindings for FUSE',
     long_description = documentation,
     author = 'Giorgos Verigakis',
     author_email = 'verigak@gmail.com',
-    maintainer = 'Terence Honles',
-    maintainer_email = 'terence@honles.com',
+    maintainer = 'Rian Hunter',
+    maintainer_email = 'rian@alum.mit.edu',
     license = 'ISC',
-    py_modules=['fuse'],
-    url = 'http://github.com/fusepy/fusepy',
+    py_modules=['fusepyng'],
+    url = 'http://github.com/rianhunter/fusepyng',
 
     classifiers = [
         'Intended Audience :: Developers',
