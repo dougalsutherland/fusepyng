@@ -838,6 +838,9 @@ class FUSE(object):
 
         except BaseException as e:
             self.__critical_exception = e
+            log.critical(
+                "Uncaught critical exception from FUSE operation %s, aborting.",
+                func.__name__, exc_info=True)
             # the raised exception (even SystemExit) will be caught by FUSE
             # potentially causing SIGSEGV, so tell system to stop/interrupt FUSE
             fuse_exit()
